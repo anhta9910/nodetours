@@ -121,7 +121,7 @@ exports.getTourStats = async (req,res) => {
         $match : { ratingsAverage : { $gte:4.5 } }
       },{
         $group : {
-          _id : '$difficulty',
+          _id: { $toUpper: '$difficulty' },
           numTours : { $sum : 1 },
           numRatings : { $sum : '$ratingsQuantity' },
           avgRating : { $avg : '$ratingsAverage' },
@@ -186,7 +186,7 @@ exports.getMonthlyPlan =  async (req,res) => {
         $sort : { numTourStarts :-1 }
       },
       {
-        $limit : 6 ,
+        $limit : 12 ,
       }
     ]);
 
@@ -205,3 +205,4 @@ exports.getMonthlyPlan =  async (req,res) => {
     });
   }
 }
+
